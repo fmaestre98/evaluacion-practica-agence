@@ -55,9 +55,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost/evaluacion-practica-agence/public'),
 
-    'asset_url' => env('ASSET_URL'),
+    'asset_url' => env('ASSET_URL',"http://localhost/evaluacion-practica-agence/resources"),
 
     /*
     |--------------------------------------------------------------------------

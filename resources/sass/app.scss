@@ -1,0 +1,38 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+
+#show_comercial p{
+   display: flex;
+   
+}
+#datepicker_end,#datepicker_start{
+    width: 40%;
+}
+
+#selects_container{
+    width: 100%;
+    display: flex;
+}
+
+#buttons_container{
+    align-self: center;
+}
+#buttons_container button{
+    margin: 5px;
+}
+#actions_buttons_container{
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+}
+#actions_buttons_container button{
+  margin: 5px;
+}
