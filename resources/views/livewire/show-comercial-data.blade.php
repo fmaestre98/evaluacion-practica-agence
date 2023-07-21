@@ -29,6 +29,7 @@
             <button wire:click="$toggle('showPizza')" type="button" class="btn btn-success"><i class="bi bi-pie-chart-fill"></i> Pizza</button>
         </div>
     </div>
+
     @if($showRelatorio)
 
     @foreach($cao_usuarios_selected as $usuario)
@@ -38,7 +39,7 @@
     @endif
 
     @if($showGrafico)
-
+    <livewire:bar-chart :co_usuarios=$cao_usuarios_selected :start="$periodo_start" :end="$periodo_end"/>
     @endif
 
     @if($showPizza)

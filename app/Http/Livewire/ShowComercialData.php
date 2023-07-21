@@ -33,10 +33,11 @@ class ShowComercialData extends Component
         $selected = $this->selectedItemsModel;
         $resultado = $this->filterArray($this->cao_usuarios_unselected, $selected, true);
         array_push($this->cao_usuarios_selected, ...$resultado);
-
+        
         $this->cao_usuarios_unselected = $this->filterArray($this->cao_usuarios_unselected, $selected, false);
         // Limpiar la selección
         $this->selectedItemsModel = [];
+        
     }
 
     public function getUnSelectedItems()
