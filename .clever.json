@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "app_id": "app_175ac9b6-35b0-4a65-9c23-e3061bc2f5a9",
+      "org_id": "user_530e3f66-8488-4ddb-b427-76a9bfd1a8cc",
+      "deploy_url": "https://push-n2-par-clevercloud-customers.services.clever-cloud.com/app_175ac9b6-35b0-4a65-9c23-e3061bc2f5a9.git",
+      "name": "evaluacion-practica-agence2",
+      "alias": "evaluacion-practica-agence2"
+    }
+  ]
+}
