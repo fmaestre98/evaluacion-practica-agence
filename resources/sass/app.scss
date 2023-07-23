@@ -8,13 +8,21 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
-
-#show_comercial p{
-   display: flex;
-   
+#date_interval{
+    display: flex;
+    align-content: center;
+    align-items: center;
 }
+#date_interval p{
+    margin-bottom: 0px;
+    padding: 10px;
+    font-size: 20px;
+}
+
+
 #datepicker_end,#datepicker_start{
-    width: 40%;
+    width: 15%;
+   
 }
 
 #selects_container{
@@ -35,4 +43,51 @@
 }
 #actions_buttons_container button{
   margin: 5px;
+}
+
+#pie_chart_container{
+    margin-top: 15px;
+}
+
+#bar_chart_container{
+    margin-top: 45px;
+    width: 100%;
+    height: 400px;
+    position: relative;
+}
+
+#realatorio_table{
+    margin-top: 15px;
+}
+
+#realatorio_table td,#realatorio_table th{
+    min-width: 130px !important;
+}
+
+
+  
+  .datepicker td, .datepicker th {
+    padding: 1px;
+    width: 60px !important;
+  }
+
+@media (max-width: 992px) {
+    #selects_container{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    #button_select,#button_desselect{
+        transform: rotate(90deg);
+    }
+
+    #datepicker_end,#datepicker_start{
+        width: 30%;
+       
+    }
+
+    .datepicker {
+        font-size: 16px;
+      }
+   
 }

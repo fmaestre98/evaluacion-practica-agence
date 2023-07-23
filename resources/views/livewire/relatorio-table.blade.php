@@ -1,5 +1,6 @@
-<div>
-    <table class="table caption-top">
+<div id="realatorio_table" class="table-responsive">
+    @if (count($dataPerMonth))
+    <table class="table caption-top table-striped table-bordered">
         <caption>{{$usuario['no_usuario']}}</caption>
         <thead class="table-light">
             <tr>
@@ -20,11 +21,11 @@
                 <td>{{$data['lucro']}}</td>
             </tr>
             @php
-                $cursor_month = DateTime::createFromFormat('m-Y', $cursor_month);
+            $cursor_month = DateTime::createFromFormat('F Y', $cursor_month);
 
-                $cursor_month->modify("+1 month");
+            $cursor_month->modify("+1 month");
 
-                $cursor_month = $cursor_month->format('m-Y');
+            $cursor_month = $cursor_month->format('F Y');
             @endphp
 
             @endforeach
@@ -40,4 +41,12 @@
             </tr>
         </tfoot>
     </table>
+    @else
+    <div class="alert alert-secondary" role="alert">
+    <caption>{{$usuario['no_usuario']}} no tiene datos para mostrar en este periodo de tiempo</caption>
+    </div>
+    
+    @endif
+
+
 </div>

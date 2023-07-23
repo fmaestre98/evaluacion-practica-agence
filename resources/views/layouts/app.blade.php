@@ -33,11 +33,11 @@
 
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Agence</a>
-                        <a class="nav-link" href="{{ url('/') }}">Projetos</a>
-                        <a class="nav-link" href="{{ url('/') }}">Administrativos</a>
-                        <a class="nav-link" href="{{ url('/comercial') }}">Comercial</a>
-                        <a class="nav-link" href="{{ url('/') }}">Financiero</a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('/') }}"><i class="bi bi-buildings"></i> Agence</a>
+                        <a class="nav-link" href="{{ url('/') }}"><i class="bi bi-clipboard-check"></i> Projetos</a>
+                        <a class="nav-link" href="{{ url('/') }}"><i class="bi bi-list-check"></i> Administrativos</a>
+                        <a class="nav-link" href="{{ url('/comercial') }}"><i class="bi bi-microsoft-teams"></i> Comercial</a>
+                        <a class="nav-link" href="{{ url('/') }}"><i class="bi bi-cash-coin"></i> Financiero</a>
 
                     </div>
 
@@ -47,13 +47,12 @@
 
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                Usuario
+                                <i class="bi bi-person-circle"></i> Usuario
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    Salir
+                                <a class="dropdown-item" href="" onclick="">
+                                    <i class="bi bi-door-open"></i> Salir
                                 </a>
 
                                 <form id="logout-form" action="" method="POST" class="d-none">
@@ -71,9 +70,12 @@
             @yield('content')
         </main>
     </div>
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
     @livewireScripts
 </body>
 

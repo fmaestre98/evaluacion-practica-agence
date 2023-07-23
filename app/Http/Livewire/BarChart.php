@@ -16,29 +16,52 @@ class BarChart extends Component
     public $dataPerMonth = [];
     public $categories = [];
     public $data = [];
-    public $custoFixoData=[];
+    public $custoFixoData = [];
 
     public function mount($co_usuarios, $start, $end)
     {
 
-        $this->categories = Utils::getMonthsIntervalNames($start, $end); 
-        print_r( $this->categories);
-        $this->dataPerMonth = $this->getReceitasPerMonth($co_usuarios, $start, $end);
-
-        for ($i=0; $i <count($co_usuarios) ; $i++) { 
-            $this->data[]=['type'=>'column','name'=>$co_usuarios[$i]['no_usuario'],'data'=>$this->dataPerMonth[$co_usuarios[$i]['co_usuario']]];
-        }
-        $custoFixo=$this->getCustoFixoMedio($co_usuarios);
-        
-        for ($i=0; $i < count($this->categories); $i++) { 
-            $this->custoFixoData[]=$custoFixo/count($this->categories);
-        }
-       
-        print_r( $this->data);
+        $this->loadData($co_usuarios, $start, $end);
     }
 
-    public function getCustoFixoMedio($co_usuarios){
-        $usuarios=array_column($co_usuarios,'co_usuario');
+    public function updatedCo_usuarios()
+    {
+        $this->reset();
+        $this->loadData($this->co_usuarios, $this->start, $this->end);
+    }
+
+    public function updatedStart()
+    {
+        $this->reset();
+        $this->loadData($this->co_usuarios, $this->start, $this->end);
+    }
+    public function updatedEnd()
+    {
+        $this->reset();
+        $this->loadData($this->co_usuarios, $this->start, $this->end);
+    }
+
+    public function loadData($co_usuarios, $start, $end)
+    {
+        $this->categories = Utils::getMonthsIntervalNames($start, $end);
+        $this->dataPerMonth = $this->getReceitasPerMonth($co_usuarios, $start, $end);
+        
+        foreach ($co_usuarios as $co_usuario) {
+            $this->data[] = ['type' => 'column', 'name' => $co_usuario['no_usuario'], 'data' => $this->dataPerMonth[$co_usuario['co_usuario']]];
+        }
+
+        $custoFixo = $this->getCustoFixoMedio($co_usuarios);
+
+        for ($i = 0; $i < count($this->categories); $i++) {
+            $this->custoFixoData[] = $custoFixo / count($this->categories);
+        }
+        $this->start = DateTime::createFromFormat('m-Y',  $start)->format('F Y');
+        $this->end = DateTime::createFromFormat('m-Y',  $end)->format('F Y');
+    }
+
+    public function getCustoFixoMedio($co_usuarios)
+    {
+        $usuarios = array_column($co_usuarios, 'co_usuario');
         return Cao_salario::whereIn('co_usuario', $usuarios)->sum('brut_salario') ?? 0;
     }
 
@@ -49,7 +72,7 @@ class BarChart extends Component
             $array_response[$u['co_usuario']] = [];
         }
 
-        $usuarios=array_column($co_usuarios,'co_usuario');
+        $usuarios = array_column($co_usuarios, 'co_usuario');
         $interval = Utils::getMonthsInterval($start, $end);
 
         $prev_month = DateTime::createFromFormat('m-Y', $start)->format('Y-m');
@@ -63,11 +86,11 @@ class BarChart extends Component
                 ->join('cao_usuario', 'cao_usuario.co_usuario', '=', 'cao_os.co_usuario')
                 ->whereIn('cao_usuario.co_usuario', $usuarios)
                 ->whereBetween('cao_fatura.data_emissao', [$prev_month . '-01', $fecha_siguiente_mes . '-01'])
-                ->selectRaw("(SUM(cao_fatura.valor)-(SUM(cao_fatura.valor)*(SUM(cao_fatura.total_imp_inc)/100))) as receita, cao_usuario.co_usuario as co_usuario")
+                ->selectRaw("SUM(cao_fatura.valor-(cao_fatura.valor*(cao_fatura.total_imp_inc/100))) AS receita, cao_usuario.co_usuario as co_usuario")
                 ->groupBy('cao_usuario.co_usuario')
                 ->get()->toArray();
 
-             foreach ($cao_facturas as $f) {
+            foreach ($cao_facturas as $f) {
                 $array_response[$f['co_usuario']][] = $f['receita'];
             }
 

@@ -15,7 +15,7 @@ class ComercialController extends Controller
         ->where('permissao_sistema.in_ativo', '=', 'S')
         ->whereIn('permissao_sistema.co_tipo_usuario',[0,1,2])
         ->select('cao_usuario.co_usuario','cao_usuario.no_usuario')
-        ->get();
+        ->get()->toArray();
         return view('comercial',compact('cao_usuarios'));
     }
 }

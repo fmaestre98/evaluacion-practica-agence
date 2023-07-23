@@ -6,7 +6,7 @@
         <div class="col-md-12">
            
             <div class="col-md-10">
-                <livewire:show-comercial-data :cao_usuarios="$cao_usuarios" />
+                <livewire:show-comercial-data :cao_usuarios="$cao_usuarios" :wire:key="uniqid()"/>
             </div>
         </div>
     </div>

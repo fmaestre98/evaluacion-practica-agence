@@ -14,6 +14,7 @@ class RelatorioTable extends Component
     public $start;
     public $end;
     public $cursor_month;
+    public $cursor_month_label;
     public $yearStart;
     public $yearEnd;
     public $usuario;
@@ -29,14 +30,36 @@ class RelatorioTable extends Component
 
     public function mount($usuario, $start, $end)
     {
+        $this->loadData($usuario, $start, $end);
+    }
+
+    public function updatedUsuario()
+    {
+        $this->reset();
+        $this->loadData($this->usuario, $this->start, $this->end);
+    }
+
+    public function updatedStart()
+    {
+        $this->reset();
+        $this->loadData($this->usuario, $this->start, $this->end);
+    }
+    public function updatedEnd()
+    {
+        $this->reset();
+        $this->loadData($this->usuario, $this->start, $this->end);
+    }
+
+    public function loadData($usuario, $start, $end)
+    {
         $this->brut_salario = Cao_salario::where('co_usuario', $usuario)->value('brut_salario') ?? 0;
 
-        $this->cursor_month = $start;
-
+        $this->cursor_month = DateTime::createFromFormat('m-Y',  $start)->format('F Y');
         $this->dataPerMonth = $this->getAllData($usuario, $start, $end);
 
         $this->brut_salario = Utils::realFormat($this->brut_salario);
     }
+
 
 
     //Get Receitas, Comision, Costo Fixo,Lucro
@@ -56,14 +79,13 @@ class RelatorioTable extends Component
                 ->join('cao_usuario', 'cao_usuario.co_usuario', '=', 'cao_os.co_usuario')
                 ->where('cao_usuario.co_usuario', '=', $co_usuario)
                 ->whereBetween('cao_fatura.data_emissao', [$prev_month . '-01', $fecha_siguiente_mes . '-01'])
-                ->selectRaw("(SUM(cao_fatura.valor)-(SUM(cao_fatura.valor)*(SUM(cao_fatura.total_imp_inc)/100))) as receita,
-                ((SUM(cao_fatura.valor)-(SUM(cao_fatura.valor)*(SUM(cao_fatura.total_imp_inc)/100)))*(SUM(cao_fatura.comissao_cn)/100)) as comision")
+                ->selectRaw("SUM(cao_fatura.valor-(cao_fatura.valor*(cao_fatura.total_imp_inc/100))) AS receita,
+                SUM((cao_fatura.valor-(cao_fatura.valor*(cao_fatura.total_imp_inc/100)))*(cao_fatura.comissao_cn/100)) AS comision")
                 ->groupBy('cao_usuario.co_usuario')
                 ->get()->toArray();
 
-
             foreach ($cao_facturas as $f) {
-                $array_response[] = ['receita' => Utils::realFormat($f['receita']), 'comision' => Utils::realFormat($f['comision']), 'lucro' => Utils::realFormat($f['receita'] - $this->brut_salario + $f['comision'])];
+                $array_response[] = ['receita' => Utils::realFormat($f['receita']), 'comision' => Utils::realFormat($f['comision']), 'lucro' => Utils::realFormat($f['receita'] - ($this->brut_salario + $f['comision']))];
                 $this->receitasSaldo += $f['receita'];
                 $this->comisionSaldo += $f['comision'];
                 $this->lucroSaldo += $f['receita'] - $this->brut_salario + $f['comision'];
@@ -78,12 +100,4 @@ class RelatorioTable extends Component
         $this->costoFijoSaldo = Utils::realFormat($this->costoFijoSaldo);
         return $array_response;
     }
-
-
-
-   
-
-
-
-   
 }

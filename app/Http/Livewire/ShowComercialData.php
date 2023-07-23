@@ -7,59 +7,57 @@ use Livewire\Component;
 class ShowComercialData extends Component
 {
 
-    public $periodo_start = "01-2007";
-    public $periodo_end = "02-2007";
+    public $periodo_start = '01-2007';
+    public $periodo_end = '04-2007';
+    public $cao_usuarios;
     public $cao_usuarios_selected;
     public $cao_usuarios_unselected;
-    public $selectedItemsModel = [];
-    public $unSelectedItemsModel = [];
     public $showRelatorio = false;
     public $showGrafico = false;
     public $showPizza = false;
+    
 
-    protected $listeners = ['onEndChange', 'onStartChange'];
+    protected $listeners = ['onEndChange', 'onStartChange', 'onShowRelatorio', 'onShowGrafico', 'onShowPizza', 'onUsuarioSelectedChange'];
 
     public function mount($cao_usuarios)
-
     {
+        $this->cao_usuarios = $cao_usuarios;
         $this->cao_usuarios_selected = [];
-        $this->cao_usuarios_unselected = $cao_usuarios->toArray();
+        $this->cao_usuarios_unselected = $cao_usuarios;
+    }
+
+    public function onUsuarioSelectedChange($cao_usuarios_selected,$cao_usuarios_unselected)
+    {
+        $this->cao_usuarios_selected = $cao_usuarios_selected;
+        $this->cao_usuarios_unselected = $cao_usuarios_unselected;
+        if(count($this->cao_usuarios_selected)==0){
+            $this->showRelatorio=false;
+            $this->showPizza=false;
+            $this->showGrafico=false;
+        }
     }
 
 
-    public function getSelectedItems()
+
+    public function onShowRelatorio($cao_usuarios_selected, $cao_usuarios_unselected)
     {
-        // Obtener los elementos seleccionados
-        $selected = $this->selectedItemsModel;
-        $resultado = $this->filterArray($this->cao_usuarios_unselected, $selected, true);
-        array_push($this->cao_usuarios_selected, ...$resultado);
-        
-        $this->cao_usuarios_unselected = $this->filterArray($this->cao_usuarios_unselected, $selected, false);
-        // Limpiar la selección
-        $this->selectedItemsModel = [];
-        
+        $this->cao_usuarios_selected = $cao_usuarios_selected;
+        $this->cao_usuarios_unselected = $cao_usuarios_unselected;
+        $this->showRelatorio = !$this->showRelatorio;
     }
 
-    public function getUnSelectedItems()
+    public function onShowGrafico($cao_usuarios_selected, $cao_usuarios_unselected)
     {
-        // Obtener los elementos seleccionados
-        $selected = $this->unSelectedItemsModel;
-        $resultado = $this->filterArray($this->cao_usuarios_selected, $selected, true);
-        array_push($this->cao_usuarios_unselected, ...$resultado);
-
-
-        $this->cao_usuarios_selected = $this->filterArray($this->cao_usuarios_selected, $selected, false);
-        // Limpiar la selección
-        $this->unSelectedItemsModel = [];
+        $this->cao_usuarios_selected = $cao_usuarios_selected;
+        $this->cao_usuarios_unselected = $cao_usuarios_unselected;
+        $this->showGrafico = !$this->showGrafico;
     }
 
-    public function onEndChange($value)
+    public function onShowPizza($cao_usuarios_selected, $cao_usuarios_unselected)
     {
-        $this->periodo_end = $value;
-    }
-    public function onStartChange($value)
-    {
-        $this->periodo_start = $value;
+        $this->cao_usuarios_selected = $cao_usuarios_selected;
+        $this->cao_usuarios_unselected = $cao_usuarios_unselected;
+        $this->showPizza = !$this->showPizza;
     }
 
     public function filterArray($result, $selected, $repeat)
@@ -68,5 +66,15 @@ class ShowComercialData extends Component
             return in_array($elemento['co_usuario'], $selected) == $repeat;
         });
         return $resultado;
+    }
+
+    public function onStartChange($value)
+    {
+        $this->periodo_start = $value;
+    }
+
+    public function onEndChange($value)
+    {
+        $this->periodo_end = $value;
     }
 }
