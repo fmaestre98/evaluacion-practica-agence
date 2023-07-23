@@ -15,7 +15,7 @@ class ShowComercialData extends Component
     public $showRelatorio = false;
     public $showGrafico = false;
     public $showPizza = false;
-    
+
 
     protected $listeners = ['onEndChange', 'onStartChange', 'onShowRelatorio', 'onShowGrafico', 'onShowPizza', 'onUsuarioSelectedChange'];
 
@@ -26,14 +26,14 @@ class ShowComercialData extends Component
         $this->cao_usuarios_unselected = $cao_usuarios;
     }
 
-    public function onUsuarioSelectedChange($cao_usuarios_selected,$cao_usuarios_unselected)
+    public function onUsuarioSelectedChange($cao_usuarios_selected, $cao_usuarios_unselected)
     {
         $this->cao_usuarios_selected = $cao_usuarios_selected;
         $this->cao_usuarios_unselected = $cao_usuarios_unselected;
-        if(count($this->cao_usuarios_selected)==0){
-            $this->showRelatorio=false;
-            $this->showPizza=false;
-            $this->showGrafico=false;
+        if (count($this->cao_usuarios_selected) == 0) {
+            $this->showRelatorio = false;
+            $this->showPizza = false;
+            $this->showGrafico = false;
         }
     }
 

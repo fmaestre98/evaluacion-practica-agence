@@ -11,32 +11,32 @@ class ComercialForm extends Component
     public $selectedItemsModel = [];
     public $unSelectedItemsModel = [];
 
-    
 
-    public function mount($cao_usuarios_selected,$cao_usuarios_unselected)
+
+    public function mount($cao_usuarios_selected, $cao_usuarios_unselected)
     {
-        $this->loadData($cao_usuarios_selected,$cao_usuarios_unselected);
+        $this->loadData($cao_usuarios_selected, $cao_usuarios_unselected);
     }
 
     public function updatedCao_usuarios_selected()
     {
-      
+
         $this->reset();
-        $this->loadData($this->cao_usuarios_selected,$this->cao_usuarios_unselected);
+        $this->loadData($this->cao_usuarios_selected, $this->cao_usuarios_unselected);
     }
 
     public function updatedCao_usuarios_unselected()
     {
         $this->reset();
-        $this->loadData($this->cao_usuarios_selected,$this->cao_usuarios_unselected);
+        $this->loadData($this->cao_usuarios_selected, $this->cao_usuarios_unselected);
     }
 
 
-    public function loadData($cao_usuarios_selected,$cao_usuarios_unselected)
+    public function loadData($cao_usuarios_selected, $cao_usuarios_unselected)
     {
-        
-        
-        $this->cao_usuarios_selected =$cao_usuarios_selected;
+
+
+        $this->cao_usuarios_selected = $cao_usuarios_selected;
         $this->cao_usuarios_unselected = $cao_usuarios_unselected;
     }
 
@@ -48,10 +48,10 @@ class ComercialForm extends Component
         array_push($this->cao_usuarios_selected, ...$resultado);
 
         $this->cao_usuarios_unselected = $this->filterArray($this->cao_usuarios_unselected, $selected, false);
-       
+
         // Limpiar la selección
         $this->selectedItemsModel = [];
-        $this->emitUp('onUsuarioSelectedChange', $this->cao_usuarios_selected,$this->cao_usuarios_unselected);
+        $this->emitUp('onUsuarioSelectedChange', $this->cao_usuarios_selected, $this->cao_usuarios_unselected);
     }
 
     public function getUnSelectedItems()
@@ -65,8 +65,7 @@ class ComercialForm extends Component
         $this->cao_usuarios_selected = $this->filterArray($this->cao_usuarios_selected, $selected, false);
         // Limpiar la selección
         $this->unSelectedItemsModel = [];
-        $this->emitUp('onUsuarioSelectedChange', $this->cao_usuarios_selected,$this->cao_usuarios_unselected);
-       
+        $this->emitUp('onUsuarioSelectedChange', $this->cao_usuarios_selected, $this->cao_usuarios_unselected);
     }
 
     public function filterArray($result, $selected, $repeat)
@@ -82,28 +81,25 @@ class ComercialForm extends Component
     public function showRelatorio()
     {
         if (count($this->cao_usuarios_selected)) {
-            $this->emitUp('onShowRelatorio', $this->cao_usuarios_selected,$this->cao_usuarios_unselected);    
+            $this->emitUp('onShowRelatorio', $this->cao_usuarios_selected, $this->cao_usuarios_unselected);
         }
-        
     }
 
     public function showGrafico()
     {
         if (count($this->cao_usuarios_selected)) {
-            $this->emitUp('onShowGrafico', $this->cao_usuarios_selected,$this->cao_usuarios_unselected);
+            $this->emitUp('onShowGrafico', $this->cao_usuarios_selected, $this->cao_usuarios_unselected);
         }
-        
     }
 
     public function showPizza()
     {
         if (count($this->cao_usuarios_selected)) {
-            $this->emitUp('onShowPizza', $this->cao_usuarios_selected,$this->cao_usuarios_unselected);
+            $this->emitUp('onShowPizza', $this->cao_usuarios_selected, $this->cao_usuarios_unselected);
         }
-        
     }
 
-    
+
 
 
     public function render()

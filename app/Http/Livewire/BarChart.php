@@ -45,7 +45,7 @@ class BarChart extends Component
     {
         $this->categories = Utils::getMonthsIntervalNames($start, $end);
         $this->dataPerMonth = $this->getReceitasPerMonth($co_usuarios, $start, $end);
-        
+
         foreach ($co_usuarios as $co_usuario) {
             $this->data[] = ['type' => 'column', 'name' => $co_usuario['no_usuario'], 'data' => $this->dataPerMonth[$co_usuario['co_usuario']]];
         }

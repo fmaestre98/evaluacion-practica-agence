@@ -7,6 +7,7 @@ use DateTime;
 class Utils
 {
 
+    //valores financieros presentados con puntuación financiera brasileña
     public static function realFormat($amount)
     {
         return 'R$ ' . number_format($amount, 2, ',', '.');
