@@ -12,19 +12,38 @@
 
 
                 @if($showRelatorio)
-
+                <div wire:loading.delay.long class="overlay" wire:target="showRelatorio">
+                        <div class="d-flex justify-content-center align-items-center" style="height:100vh">
+                                <div class="spinner-grow text-primary" style="width: 4rem; height: 4rem;" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                </div>
+                        </div>
+                </div>
                 @foreach($cao_usuarios_selected as $usuario)
                 <livewire:relatorio-table :usuario="$usuario" :start="$periodo_start" :end="$periodo_end" :wire:key="uniqid()" />
                 @endforeach
                 @endif
 
                 @if($showGrafico)
-
+                <div wire:loading.delay.long class="overlay" wire:target="showRelatorio">
+                        <div class="d-flex justify-content-center align-items-center" style="height:100vh">
+                                <div class="spinner-grow text-primary" style="width: 4rem; height: 4rem;" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                </div>
+                        </div>
+                </div>
                 <livewire:bar-chart :co_usuarios=$cao_usuarios_selected :start="$periodo_start" :end="$periodo_end" :wire:key="uniqid()" />
 
                 @endif
 
                 @if($showPizza)
+                <div wire:loading.delay.long class="overlay" wire:target="showRelatorio">
+                        <div class="d-flex justify-content-center align-items-center" style="height:100vh">
+                                <div class="spinner-grow text-primary" style="width: 4rem; height: 4rem;" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                </div>
+                        </div>
+                </div>
                 <livewire:pie-chart :co_usuarios=$cao_usuarios_selected :start="$periodo_start" :end="$periodo_end" :wire:key="uniqid()" />
                 @endif
 

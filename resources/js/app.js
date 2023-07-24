@@ -8,7 +8,7 @@ $(function () {
     });
     $("#datepicker_end").datepicker({
         format: "dd/mm/yyyy",
-        startView: "months",
+        startView: "year",
         autoclose: true
 
     });
