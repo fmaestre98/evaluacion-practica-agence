@@ -4,13 +4,6 @@
                 <input type="text" wire:model.debounce.1000ms="periodo_start" class="form-control" name="datepicker_start" id="datepicker_start" readonly />
                 <p>a</p>
                 <input type="text" wire:model.debounce.1000ms="periodo_end" class="form-control" name="datepicker_end" id="datepicker_end" readonly />
-                <div wire:loading.delay.long class="overlay">
-                        <div class="d-flex justify-content-center align-items-center" style="height:100vh">
-                                <div class="spinner-grow text-primary" style="width: 4rem; height: 4rem;" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                </div>
-                        </div>
-                </div>
         </div>
 
 
