@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'asset_url' => "/assets",
+    'asset_url' => "https://app-ed7022a5-f7d6-44bb-802c-19f2b1ff7415.cleverapps.io/vendor",
 
     /*
     |--------------------------------------------------------------------------
