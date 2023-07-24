@@ -76,6 +76,17 @@
     width: 60px !important;
   }
 
+  .loading{
+    margin-top: 20px;
+    width: 100%; 
+    display:flex;
+    flex-direction: column;
+  }
+
+  .loading div{
+   align-self: center;
+  } 
+
 @media (max-width: 992px) {
     #selects_container{
         width: 100%;

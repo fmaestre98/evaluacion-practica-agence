@@ -2,7 +2,7 @@
     
     <h3>Consultores:</h3>
     <div id="selects_container">
-        <select wire:model.debounce.1000ms="selectedItemsModel" class="form-select" id="first_list" size="6" multiple aria-label="multiple select example">
+        <select wire:model.debounce.450ms="selectedItemsModel" class="form-select" id="first_list" size="6" multiple aria-label="multiple select example">
             @foreach($cao_usuarios_unselected as $usuario)
             <option value="{{$usuario['co_usuario']}}">{{$usuario['no_usuario']}}</option>
             @endforeach
@@ -12,7 +12,7 @@
             <button wire:click="getSelectedItems" type="button" id="button_select" class="btn btn-secondary btn-sm"> <i class="bi bi-box-arrow-in-right"></i></button>
             <button wire:click="getUnSelectedItems" type="button" id="button_desselect" class="btn btn-secondary btn-sm"> <i class="bi bi-box-arrow-in-left"></i></button>
         </div>
-        <select wire:model.debounce.1000ms="unSelectedItemsModel" class="form-select" id="selected" size="6" multiple aria-label="multiple select example">
+        <select wire:model.debounce.450ms="unSelectedItemsModel" class="form-select" id="selected" size="6" multiple aria-label="multiple select example">
             @foreach($cao_usuarios_selected as $usuario)
              <option value="{{ $usuario['co_usuario']}}">{{$usuario['no_usuario']}}</option>
             @endforeach
