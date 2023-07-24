@@ -87,6 +87,23 @@
    align-self: center;
   } 
 
+  .overlay {
+    position: fixed;
+    z-index: 9999;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  
+  .overlay .d-flex {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
 @media (max-width: 992px) {
     #selects_container{
         width: 100%;
