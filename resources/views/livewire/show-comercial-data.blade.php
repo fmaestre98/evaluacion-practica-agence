@@ -10,11 +10,6 @@
 
         <livewire:comercial-form :cao_usuarios_selected="$cao_usuarios_selected" :cao_usuarios_unselected="$cao_usuarios_unselected" :wire:key="uniqid()" />
         <div wire:ignore>
-                <div wire:loading class="loading">
-                        <div class="spinner-border" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                        </div>
-                </div>
 
                 @if($showRelatorio)
 
