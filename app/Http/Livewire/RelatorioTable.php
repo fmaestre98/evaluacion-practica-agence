@@ -54,7 +54,7 @@ class RelatorioTable extends Component
     {
         $this->brut_salario = Cao_salario::where('co_usuario', $usuario)->value('brut_salario') ?? 0;
 
-        $this->cursor_month = DateTime::createFromFormat('m-Y',  $start)->format('F Y');
+        $this->cursor_month = DateTime::createFromFormat('d/m/Y',  $start)->format('F Y');
         $this->dataPerMonth = $this->getAllData($usuario, $start, $end);
 
         $this->brut_salario = Utils::realFormat($this->brut_salario);
@@ -67,18 +67,18 @@ class RelatorioTable extends Component
     {
         $interval = Utils::getMonthsInterval($start, $end);
         $array_response = [];
-        $prev_month = DateTime::createFromFormat('m-Y', $start)->format('Y-m');
+        $prev_month = DateTime::createFromFormat('d/m/Y', $start)->format('Y-m-d');
         for ($i = 1; $i <= $interval; $i++) {
-            $objeto_fecha = DateTime::createFromFormat('m-Y', $start);
+            $objeto_fecha = DateTime::createFromFormat('d/m/Y', $start);
 
             $objeto_fecha->modify("+$i month");
 
-            $fecha_siguiente_mes = $objeto_fecha->format('Y-m');
+            $fecha_siguiente_mes = $objeto_fecha->format('Y-m-d');
 
             $cao_facturas = Cao_factura::join('cao_os', 'cao_os.co_os', '=', 'cao_fatura.co_os')
                 ->join('cao_usuario', 'cao_usuario.co_usuario', '=', 'cao_os.co_usuario')
                 ->where('cao_usuario.co_usuario', '=', $co_usuario)
-                ->whereBetween('cao_fatura.data_emissao', [$prev_month . '-01', $fecha_siguiente_mes . '-01'])
+                ->whereBetween('cao_fatura.data_emissao', [$prev_month, $fecha_siguiente_mes])
                 ->selectRaw("SUM(cao_fatura.valor-(cao_fatura.valor*(cao_fatura.total_imp_inc/100))) AS receita,
                 SUM((cao_fatura.valor-(cao_fatura.valor*(cao_fatura.total_imp_inc/100)))*(cao_fatura.comissao_cn/100)) AS comision")
                 ->groupBy('cao_usuario.co_usuario')

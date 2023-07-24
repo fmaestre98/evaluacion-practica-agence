@@ -1,16 +1,14 @@
 import './bootstrap';
 $(function () {
     $("#datepicker_start").datepicker({
-        format: "mm-yyyy",
-        startView: "months",
-        minViewMode: "months",
+        format: "dd/mm/yyyy",
+        startView: "year",
         autoclose: true,
 
     });
     $("#datepicker_end").datepicker({
-        format: "mm-yyyy",
+        format: "dd/mm/yyyy",
         startView: "months",
-        minViewMode: "months",
         autoclose: true
 
     });

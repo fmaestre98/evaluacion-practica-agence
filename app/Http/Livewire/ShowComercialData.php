@@ -7,8 +7,8 @@ use Livewire\Component;
 class ShowComercialData extends Component
 {
 
-    public $periodo_start = '01-2007';
-    public $periodo_end = '04-2007';
+    public $periodo_start = '01/01/2007';
+    public $periodo_end = '01/04/2007';
     public $cao_usuarios;
     public $cao_usuarios_selected;
     public $cao_usuarios_unselected;

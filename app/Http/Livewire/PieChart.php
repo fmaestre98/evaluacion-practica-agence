@@ -54,8 +54,8 @@ class PieChart extends Component
             }
         }
 
-        $this->start = DateTime::createFromFormat('m-Y',  $start)->format('F Y');
-        $this->end = DateTime::createFromFormat('m-Y',  $end)->format('F Y');
+        $this->start = DateTime::createFromFormat('d/m/Y',  $start)->format('d F Y');
+        $this->end = DateTime::createFromFormat('d/m/Y',  $end)->format('d F Y');
     }
 
 
@@ -65,16 +65,16 @@ class PieChart extends Component
         $array_response = array();
 
         $usuarios = array_column($co_usuarios, 'co_usuario');
-        $start = DateTime::createFromFormat('m-Y', $start);
-        $end = DateTime::createFromFormat('m-Y', $end);
-        $start = $start->format('Y-m');
-        $end = $end->format('Y-m');
+        $start = DateTime::createFromFormat('d/m/Y', $start);
+        $end = DateTime::createFromFormat('d/m/Y', $end);
+        $start = $start->format('Y-m-d');
+        $end = $end->format('Y-m-d');
 
 
         $cao_facturas = Cao_factura::join('cao_os', 'cao_os.co_os', '=', 'cao_fatura.co_os')
             ->join('cao_usuario', 'cao_usuario.co_usuario', '=', 'cao_os.co_usuario')
             ->whereIn('cao_usuario.co_usuario', $usuarios)
-            ->whereBetween('cao_fatura.data_emissao', [$start . '-01', $end . '-01'])
+            ->whereBetween('cao_fatura.data_emissao', [$start, $end])
             ->selectRaw("SUM(cao_fatura.valor-(cao_fatura.valor*(cao_fatura.total_imp_inc/100))) AS receita, cao_usuario.co_usuario as co_usuario")
             ->groupBy('cao_usuario.co_usuario')
             ->get()->toArray();

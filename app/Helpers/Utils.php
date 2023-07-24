@@ -15,8 +15,8 @@ class Utils
 
     public static function getMonthsInterval($start, $end)
     {
-        $objeto_fecha1 = DateTime::createFromFormat('m-Y', $start);
-        $objeto_fecha2 = DateTime::createFromFormat('m-Y', $end);
+        $objeto_fecha1 = DateTime::createFromFormat('d/m/Y', $start);
+        $objeto_fecha2 = DateTime::createFromFormat('d/m/Y', $end);
 
         $intervalo = $objeto_fecha1->diff($objeto_fecha2);
 
@@ -26,8 +26,8 @@ class Utils
 
     public static function getMonthsIntervalNames($start, $end)
     {
-        $start = DateTime::createFromFormat('m-Y', $start);
-        $end = DateTime::createFromFormat('m-Y', $end);
+        $start = DateTime::createFromFormat('d/m/Y', $start);
+        $end = DateTime::createFromFormat('d/m/Y', $end);
 
         $monthNames = array();
 
@@ -42,7 +42,7 @@ class Utils
     public static function getDateLabel($date)
     {
 
-        $objeto_fecha = DateTime::createFromFormat('m-Y', $date);
+        $objeto_fecha = DateTime::createFromFormat('d/m/Y', $date);
         $nombre_mes = date_format($objeto_fecha, 'F');
 
         $anio = date_format($objeto_fecha, 'Y');
