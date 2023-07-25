@@ -24,7 +24,7 @@ class RelatorioTable extends Component
     public $costoFijoSaldo = 0;
     public $lucroSaldo = 0;
     public $brut_salario = 0;
-
+    public $showComponent = true;
 
     protected $listeners = ['udpateCursorMonth'];
 
@@ -52,12 +52,17 @@ class RelatorioTable extends Component
 
     public function loadData($usuario, $start, $end)
     {
-        $this->brut_salario = Cao_salario::where('co_usuario', $usuario)->value('brut_salario') ?? 0;
+        if (Utils::compareDates($start, $end)) {
+            $this->brut_salario = Cao_salario::where('co_usuario', $usuario)->value('brut_salario') ?? 0;
 
-        $this->cursor_month = DateTime::createFromFormat('d/m/Y',  $start)->format('F Y');
-        $this->dataPerMonth = $this->getAllData($usuario, $start, $end);
+            $this->cursor_month = DateTime::createFromFormat('d/m/Y',  $start)->format('F Y');
+            $this->dataPerMonth = $this->getAllData($usuario, $start, $end);
 
-        $this->brut_salario = Utils::realFormat($this->brut_salario);
+            $this->brut_salario = Utils::realFormat($this->brut_salario);
+            $this->showComponent = true;
+        } else {
+            $this->showComponent = false;
+        }
     }
 
 

@@ -39,6 +39,18 @@ class Utils
         return $monthNames;
     }
 
+    public static function compareDates($start, $end)
+    {
+        $start = DateTime::createFromFormat('d/m/Y', $start);
+        $end = DateTime::createFromFormat('d/m/Y', $end);
+
+        if ($start > $end) {
+          return false;
+        }
+
+       return true;
+    }
+
     public static function getDateLabel($date)
     {
 

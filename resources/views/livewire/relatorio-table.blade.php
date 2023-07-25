@@ -1,5 +1,5 @@
 <div id="realatorio_table" class="table-responsive">
-    @if (count($dataPerMonth))
+    @if (count($dataPerMonth) &&  $showComponent)
     <table class="table caption-top table-striped table-bordered">
         <caption>{{$usuario['no_usuario']}}</caption>
         <thead class="table-light">

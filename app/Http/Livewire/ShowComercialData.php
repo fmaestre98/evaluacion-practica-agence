@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Helpers\Utils;
 use Livewire\Component;
 
 class ShowComercialData extends Component
@@ -16,7 +17,7 @@ class ShowComercialData extends Component
     public $showGrafico = false;
     public $showPizza = false;
 
-
+    
     protected $listeners = ['onEndChange', 'onStartChange', 'onShowRelatorio', 'onShowGrafico', 'onShowPizza', 'onUsuarioSelectedChange'];
 
     public function mount($cao_usuarios)
@@ -31,9 +32,7 @@ class ShowComercialData extends Component
         $this->cao_usuarios_selected = $cao_usuarios_selected;
         $this->cao_usuarios_unselected = $cao_usuarios_unselected;
         if (count($this->cao_usuarios_selected) == 0) {
-            $this->showRelatorio = false;
-            $this->showPizza = false;
-            $this->showGrafico = false;
+            $this->hideData();
         }
     }
 
@@ -41,40 +40,57 @@ class ShowComercialData extends Component
 
     public function onShowRelatorio($cao_usuarios_selected, $cao_usuarios_unselected)
     {
-        $this->cao_usuarios_selected = $cao_usuarios_selected;
-        $this->cao_usuarios_unselected = $cao_usuarios_unselected;
-        $this->showRelatorio = !$this->showRelatorio;
+        if (Utils::compareDates($this->periodo_start, $this->periodo_end)) {
+            $this->cao_usuarios_selected = $cao_usuarios_selected;
+            $this->cao_usuarios_unselected = $cao_usuarios_unselected;
+            $this->showRelatorio = !$this->showRelatorio;
+        } else {
+            $this->hideData();
+        }
     }
 
     public function onShowGrafico($cao_usuarios_selected, $cao_usuarios_unselected)
     {
-        $this->cao_usuarios_selected = $cao_usuarios_selected;
-        $this->cao_usuarios_unselected = $cao_usuarios_unselected;
-        $this->showGrafico = !$this->showGrafico;
+        if (Utils::compareDates($this->periodo_start, $this->periodo_end)) {
+            $this->cao_usuarios_selected = $cao_usuarios_selected;
+            $this->cao_usuarios_unselected = $cao_usuarios_unselected;
+            $this->showGrafico = !$this->showGrafico;
+        } else {
+            $this->hideData();
+        }
     }
 
     public function onShowPizza($cao_usuarios_selected, $cao_usuarios_unselected)
     {
-        $this->cao_usuarios_selected = $cao_usuarios_selected;
-        $this->cao_usuarios_unselected = $cao_usuarios_unselected;
-        $this->showPizza = !$this->showPizza;
-    }
-
-    public function filterArray($result, $selected, $repeat)
-    {
-        $resultado = array_filter($result, function ($elemento) use ($selected, $repeat) {
-            return in_array($elemento['co_usuario'], $selected) == $repeat;
-        });
-        return $resultado;
+        if (Utils::compareDates($this->periodo_start, $this->periodo_end)) {
+            $this->cao_usuarios_selected = $cao_usuarios_selected;
+            $this->cao_usuarios_unselected = $cao_usuarios_unselected;
+            $this->showPizza = !$this->showPizza;
+        } else {
+            $this->hideData();
+        }
     }
 
     public function onStartChange($value)
     {
         $this->periodo_start = $value;
+        if (Utils::compareDates($this->periodo_start, $this->periodo_end)) {
+           $this->hideData();
+        }
     }
 
     public function onEndChange($value)
     {
         $this->periodo_end = $value;
+        if (Utils::compareDates($this->periodo_start, $this->periodo_end)) {
+            $this->hideData();
+        }
+    }
+
+    public function hideData()
+    {
+        $this->showPizza = false;
+        $this->showGrafico = false;
+        $this->showRelatorio = false;
     }
 }

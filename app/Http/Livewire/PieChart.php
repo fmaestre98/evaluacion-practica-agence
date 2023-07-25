@@ -17,6 +17,7 @@ class PieChart extends Component
     public $categories = [];
     public $custoFixoData = [];
     public $total;
+    public $showComponent = true;
 
 
     public function mount($co_usuarios, $start, $end)
@@ -43,19 +44,24 @@ class PieChart extends Component
 
     public function loadData($co_usuarios, $start, $end)
     {
-        $arrayResponse = $this->getReceitaLiquidaTotal($co_usuarios, $start, $end);
+        if (Utils::compareDates($start, $end)) {
+            $arrayResponse = $this->getReceitaLiquidaTotal($co_usuarios, $start, $end);
 
-        foreach ($co_usuarios as $co_usuario) {
-            if (array_key_exists($co_usuario['co_usuario'], $arrayResponse)) {
-                $porciento = ($arrayResponse[$co_usuario['co_usuario']] * 100) / $this->total;
-                $this->data[] = ['name' => $co_usuario['no_usuario'], 'y' => $porciento];
-            } else {
-                $this->data[] = ['name' => $co_usuario['no_usuario'], 'y' => 0];
+            foreach ($co_usuarios as $co_usuario) {
+                if (array_key_exists($co_usuario['co_usuario'], $arrayResponse)) {
+                    $porciento = ($arrayResponse[$co_usuario['co_usuario']] * 100) / $this->total;
+                    $this->data[] = ['name' => $co_usuario['no_usuario'], 'y' => $porciento];
+                } else {
+                    $this->data[] = ['name' => $co_usuario['no_usuario'], 'y' => 0];
+                }
             }
-        }
 
-        $this->start = DateTime::createFromFormat('d/m/Y',  $start)->format('d F Y');
-        $this->end = DateTime::createFromFormat('d/m/Y',  $end)->format('d F Y');
+            $this->start = DateTime::createFromFormat('d/m/Y',  $start)->format('d F Y');
+            $this->end = DateTime::createFromFormat('d/m/Y',  $end)->format('d F Y');
+            $this->showComponent = true;
+        } else {
+            $this->showComponent = false;
+        }
     }
 
 

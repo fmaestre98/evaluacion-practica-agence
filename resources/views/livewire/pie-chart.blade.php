@@ -1,5 +1,5 @@
 <div>
-
+@if($showComponent) 
     <div id="pie_chart_container"></div>
 
     <script>
@@ -97,4 +97,5 @@
             }
         });
     </script>
+    @endif
 </div>

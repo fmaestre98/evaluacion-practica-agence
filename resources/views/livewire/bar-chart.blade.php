@@ -1,4 +1,5 @@
-<div >
+<div>
+   @if($showComponent) 
     <div id="bar_chart_container"></div>
 
     <script type="text/javascript">
@@ -117,5 +118,5 @@
 
   
     </script>
-
+   @endif
 </div>

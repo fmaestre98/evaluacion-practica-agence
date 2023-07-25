@@ -17,6 +17,7 @@ class BarChart extends Component
     public $categories = [];
     public $data = [];
     public $custoFixoData = [];
+    public $showComponent = true;
 
     public function mount($co_usuarios, $start, $end)
     {
@@ -43,20 +44,26 @@ class BarChart extends Component
 
     public function loadData($co_usuarios, $start, $end)
     {
-        $this->categories = Utils::getMonthsIntervalNames($start, $end);
-        $this->dataPerMonth = $this->getReceitasPerMonth($co_usuarios, $start, $end);
+        if (Utils::compareDates($start, $end)) {
 
-        foreach ($co_usuarios as $co_usuario) {
-            $this->data[] = ['type' => 'column', 'name' => $co_usuario['no_usuario'], 'data' => $this->dataPerMonth[$co_usuario['co_usuario']]];
+            $this->categories = Utils::getMonthsIntervalNames($start, $end);
+            $this->dataPerMonth = $this->getReceitasPerMonth($co_usuarios, $start, $end);
+
+            foreach ($co_usuarios as $co_usuario) {
+                $this->data[] = ['type' => 'column', 'name' => $co_usuario['no_usuario'], 'data' => $this->dataPerMonth[$co_usuario['co_usuario']]];
+            }
+
+            $custoFixo = $this->getCustoFixoMedio($co_usuarios);
+
+            for ($i = 0; $i < count($this->categories); $i++) {
+                $this->custoFixoData[] = $custoFixo / count($this->categories);
+            }
+            $this->start = DateTime::createFromFormat('d/m/Y',  $start)->format('d F Y');
+            $this->end = DateTime::createFromFormat('d/m/Y',  $end)->format('d F Y');
+            $this->showComponent=true;
+        }else{
+            $this->showComponent=false;
         }
-
-        $custoFixo = $this->getCustoFixoMedio($co_usuarios);
-
-        for ($i = 0; $i < count($this->categories); $i++) {
-            $this->custoFixoData[] = $custoFixo / count($this->categories);
-        }
-        $this->start = DateTime::createFromFormat('d/m/Y',  $start)->format('d F Y');
-        $this->end = DateTime::createFromFormat('d/m/Y',  $end)->format('d F Y');
     }
 
     public function getCustoFixoMedio($co_usuarios)
