@@ -74,7 +74,7 @@ class ShowComercialData extends Component
     public function onStartChange($value)
     {
         $this->periodo_start = $value;
-        if (Utils::compareDates($this->periodo_start, $this->periodo_end)) {
+        if (!Utils::compareDates($this->periodo_start, $this->periodo_end)) {
            $this->hideData();
         }
     }
@@ -82,7 +82,7 @@ class ShowComercialData extends Component
     public function onEndChange($value)
     {
         $this->periodo_end = $value;
-        if (Utils::compareDates($this->periodo_start, $this->periodo_end)) {
+        if (!Utils::compareDates($this->periodo_start, $this->periodo_end)) {
             $this->hideData();
         }
     }
