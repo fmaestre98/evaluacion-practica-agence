@@ -36,7 +36,7 @@
                         <a class="nav-link active" aria-current="page" href="{{ url('/') }}"><i class="bi bi-buildings"></i> Agence</a>
                         <a class="nav-link" href="{{ url('/') }}"><i class="bi bi-clipboard-check"></i> Projetos</a>
                         <a class="nav-link" href="{{ url('/') }}"><i class="bi bi-list-check"></i> Administrativos</a>
-                        <a class="nav-link" href="{{ url('/comercial') }}"><i class="bi bi-microsoft-teams"></i> Comercial</a>
+                        <a class="nav-link" href="comercial"><i class="bi bi-microsoft-teams"></i> Comercial</a>
                         <a class="nav-link" href="{{ url('/') }}"><i class="bi bi-cash-coin"></i> Financiero</a>
 
                     </div>
